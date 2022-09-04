@@ -41,13 +41,11 @@ func parseParams() *cliParams {
 	if err == os.ErrNotExist {
 		err = os.MkdirAll(*outPath, 0755)
 		if err != nil {
-			fmt.Printf("Failed to create output path at: \"%s\\n", *outPath)
+			fmt.Printf("Failed to create output path at: \"%s\"\n", *outPath)
 			fmt.Println("Try a different place or launch extractor with the administrative rights")
 			return nil
 		}
-	}
-
-	if err == nil && !outPathStat.IsDir() {
+	} else if err == nil && !outPathStat.IsDir() {
 		fmt.Printf("Invalid output path: \"%s\"\n", *outPath)
 		return nil
 	}
