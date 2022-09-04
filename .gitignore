@@ -1,0 +1,5 @@
+*.exe
+*.so
+*.out
+*.dll
+cache.bin
