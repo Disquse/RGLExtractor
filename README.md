@@ -7,16 +7,16 @@ This tool was created only for educational and data mining purposes.
 Download and install [Go](https://go.dev) (1.18+) toolchain.
 
 ```powershell
-git clone https://github.com/Disquse/RGLExtractor
+git clone "https://github.com/Disquse/RGLExtractor"
 cd RGLExtractor
 go build
 .\RGLExtractor.exe --rgl "C:\Program Files\Rockstar Games\Launcher" --out "C:\Launcher_rpf"
 ```
 
 ## Thanks
-dexyfex for [CodeWalker](https://github.com/dexyfex/CodeWalker)
-0x1F9F1 for [Swage](https://github.com/0x1F9F1/Swage)
-kelindar for [iostream](https://github.com/kelindar/iostream)
+- dexyfex for [CodeWalker](https://github.com/dexyfex/CodeWalker)
+- 0x1F9F1 for [Swage](https://github.com/0x1F9F1/Swage)
+- kelindar for [iostream](https://github.com/kelindar/iostream)
 
 ## License
 MIT.
