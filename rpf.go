@@ -411,7 +411,9 @@ func (fi *fiPackFile) extractPackEntry(packEntry *fiPackEntry, outPath string) e
 
 	// Some entries has no extension, let's guess using magic
 	if filepath.Ext(outPath) == "" {
-		if string(entryContent[1:4]) == "PNG" || string(entryContent[6:10]) == "Exif" {
+		if string(entryContent[6:10]) == "Exif" {
+			outPath += ".jpg"
+		} else if string(entryContent[1:4]) == "PNG" {
 			outPath += ".png"
 		} else if string(entryContent[0:3]) == "GIF" {
 			outPath += ".gif"
