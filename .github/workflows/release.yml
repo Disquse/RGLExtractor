@@ -18,8 +18,13 @@ jobs:
     - name: Build
       run: GOOS=windows GOARCH=amd64 go build -v
 
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: artifacts
-        path: ./*.exe
+    - name: Make release
+      uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: "Development Build"
+          files: |
+            LICENSE
+            *.exe
