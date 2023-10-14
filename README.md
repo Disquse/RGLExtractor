@@ -6,7 +6,7 @@ RGL uses `RPF7` (like GTAV) but encrypted with a different AES key. The key is o
 This tool was created only for educational and data mining purposes.
 
 ## How to use
-- Download the latest available [artifact](https://github.com/Disquse/RGLExtractor/actions/workflows/release.yml).
+- Download the latest available [release](https://github.com/Disquse/RGLExtractor/releases).
 - Unzip `RGLExtractor.exe`
 - Run the tool and pass required arguments. For example:
 `.\RGLExtractor.exe --rgl "C:\Program Files\Rockstar Games\Launcher" --out "C:\Launcher_rpf"`
