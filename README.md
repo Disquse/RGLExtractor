@@ -15,10 +15,15 @@ This tool was created only for educational and data mining purposes.
 Download and install [Go](https://go.dev) (1.18+) toolchain.
 
 ```powershell
+# Clone and build.
 git clone "https://github.com/Disquse/RGLExtractor"
 cd RGLExtractor
 go build
+
+# Extract Launcher's RPF content.
 .\RGLExtractor.exe --rgl "C:\Program Files\Rockstar Games\Launcher" --out "C:\Launcher_rpf"
+# Decrypt title.rgl files (recursively).
+.\RGLExtractor.exe --titles "C:\Launcher_rpf" --out "C:\titles_rgl"
 ```
 
 ## Thanks
