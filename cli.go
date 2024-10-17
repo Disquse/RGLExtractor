@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 const (
@@ -112,8 +111,12 @@ func decryptTitles(params *cliParams) error {
 			return err
 		}
 
-		pathParts := strings.Split(filePath, "\\")
-		outPath := filepath.Join(params.outPath, pathParts[len(pathParts)-2]+"-title.rgl.json")
+		fileName := title.Name
+		if fileName == "" {
+			_, fileName = filepath.Split(filePath)
+		}
+
+		outPath := filepath.Join(params.outPath, fileName+".rgl.json")
 		directory := filepath.Dir(outPath)
 
 		if _, err := os.Stat(directory); os.IsNotExist(err) {

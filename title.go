@@ -7,6 +7,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 )
 
 var (
@@ -16,6 +17,7 @@ var (
 )
 
 type rglTitle struct {
+	Name    string
 	Magic   []byte
 	Version uint32
 	Length  uint32
@@ -35,7 +37,15 @@ func ReadTitleFromFile(filePath string) (*rglTitle, error) {
 		return nil, err
 	}
 
-	return ReadTitleFromBuffer(content)
+	title, err := ReadTitleFromBuffer(content)
+	if err != nil {
+		return nil, err
+	}
+
+	// Get title name from file path
+	title.Name = getTitleFileName(filePath)
+
+	return title, nil
 }
 
 func ReadTitleFromBuffer(content []byte) (*rglTitle, error) {
@@ -80,11 +90,32 @@ func ReadTitleFromBuffer(content []byte) (*rglTitle, error) {
 	}
 
 	return &rglTitle{
+		Name:    "",
 		Magic:   magic,
 		Version: version,
 		Length:  length,
 		Data:    data,
 	}, nil
+}
+
+func getTitleFileName(path string) string {
+	var parts []string
+	for {
+		dir, file := filepath.Split(path)
+		if file != "" {
+			parts = append([]string{file}, parts...)
+		}
+		if dir == "" || dir == path {
+			break
+		}
+		path = filepath.Clean(dir)
+	}
+
+	if len(parts) < 2 {
+		return ""
+	}
+
+	return parts[len(parts)-2]
 }
 
 func (title *rglTitle) decrypt() string {

@@ -320,7 +320,7 @@ func (fi *fiPackFile) buildEntryPathMap() map[int]string {
 			if entryName == "" {
 				pathsMap[i] = innerName
 			} else {
-				pathsMap[i] = fmt.Sprintf("%s\\%s", entryName, innerName)
+				pathsMap[i] = path.Join(entryName, innerName)
 			}
 		}
 	}
@@ -347,7 +347,7 @@ func (fi *fiPackFile) extractPackFile(outPath string, logFunc func(string)) erro
 				logFunc(fmt.Sprintf("Extracting pack entry \"%s\"", entryPath))
 			}
 
-			extractPath := path.Clean(outPath + "\\" + entryPath)
+			extractPath := path.Clean(path.Join(outPath, entryPath))
 			err := fi.extractPackEntry(fi.Entries[i], extractPath)
 
 			if err != nil {
@@ -422,8 +422,7 @@ func (fi *fiPackFile) extractPackEntry(packEntry *fiPackEntry, outPath string) e
 		}
 	}
 
-	pathParts := strings.Split(outPath, "\\")
-	directory := strings.Join(pathParts[:len(pathParts)-1], "\\")
+	directory, _ := filepath.Split(outPath)
 
 	if _, err := os.Stat(directory); os.IsNotExist(err) {
 		err := os.MkdirAll(directory, 0755)
@@ -433,7 +432,7 @@ func (fi *fiPackFile) extractPackEntry(packEntry *fiPackEntry, outPath string) e
 		}
 	}
 
-	file, err := os.OpenFile(outPath, os.O_WRONLY|os.O_CREATE, 0666)
+	file, err := os.OpenFile(outPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
 	if err != nil {
 		return err
 	}
